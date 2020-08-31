@@ -5,6 +5,7 @@ jobs: # a basic unit of work in a run
       xcode: "10.0.0" # indicate our selected version of Xcode
     steps: # a series of commands to run
       - checkout  # pull down code from your version control system.
+      - run: brew install gradle
       - run:
           # run our tests using xcode's cli tool `xcodebuild`
           name: Run Unit Tests
