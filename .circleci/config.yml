@@ -6,9 +6,9 @@ jobs: # a basic unit of work in a run
       xcode: "10.0.0" # indicate our selected version of Xcode
     steps: # a series of commands to run
       - checkout  # pull down code from your version control system.
-      - run: brew update && brew install wget
+      - run: brew update 
       - run: brew install gradle
-      - run: wget https://download-gcdn.ej-technologies.com/install4j/install4j_macos_8_0_8.dmg
+      - run: curl https://download-gcdn.ej-technologies.com/install4j/install4j_macos_8_0_8.dmg
       - run: bash scripts/extract-install4j.sh
       - run: install4j7/bin/install4jc --verbose --license=$INSTALL4J_KEY
       - run: ./gradlew -Pinstall4jDir="install4j7" release --stacktrace
