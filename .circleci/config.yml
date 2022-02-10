@@ -7,8 +7,8 @@ jobs: # a basic unit of work in a run
     resource_class: macos.x86.medium.gen2
     steps: # a series of commands to run
       - checkout  # pull down code from your version control system.
-      - run: brew update 
-      - run: brew install gradle
+#      - run: brew update 
+#      - run: brew install gradle
 #      - run: curl https://download-gcdn.ej-technologies.com/install4j/install4j_macos_8_0_8.dmg
 #      - run: bash scripts/extract-install4j.sh
 #      - run: install4j7/bin/install4jc --verbose --license=$INSTALL4J_KEY
@@ -28,9 +28,9 @@ jobs: # a basic unit of work in a run
           root: build/Release/
           paths:
             - circleci-demo-macos.app
- #     - store_artifacts:
- #         path: app.zip
- #         destination: app
+      - store_artifacts:
+          path: app.zip
+          destination: app
 
   test1: # runs not using `Workflows` must have a `build` job as entry point
     macos:  # indicate that we are using the macOS executor
@@ -40,8 +40,8 @@ jobs: # a basic unit of work in a run
       - checkout  # pull down code from your version control system.
       - attach_workspace:
           at: build/Release/
-      - run: brew update
-      - run: brew install gradle
+#      - run: brew update
+#      - run: brew install gradle
 #      - run: curl https://download-gcdn.ej-technologies.com/install4j/install4j_macos_8_0_8.dmg
 #      - run: bash scripts/extract-install4j.sh
 #      - run: install4j7/bin/install4jc --verbose --license=$INSTALL4J_KEY
@@ -69,8 +69,8 @@ jobs: # a basic unit of work in a run
       - checkout  # pull down code from your version control system.
       - attach_workspace:
           at: build/Release/
-      - run: brew update
-      - run: brew install gradle
+#      - run: brew update
+#      - run: brew install gradle
 #      - run: curl https://download-gcdn.ej-technologies.com/install4j/install4j_macos_8_0_8.dmg
 #      - run: bash scripts/extract-install4j.sh
 #      - run: install4j7/bin/install4jc --verbose --license=$INSTALL4J_KEY
