@@ -33,11 +33,11 @@ jobs: # a basic unit of work in a run
       - run:
           # Create XCTESTRUN file using xcode's cli tool `xcodebuild`
           name: Create XCTESTRUN file
-          command: xcodebuild build-for-testing -scheme circleci-demo-macos
+          command: xcodebuild build-for-testing -scheme "XCTestRun"
       - run:
           # run our tests using xcode's cli tool `xcodebuild`
           name: Run Unit Tests
-          command: xcodebuild test-without-building -scheme circleci-demo-macos -only-testing:circleci-demo-macosTests/circleci_demo_macosTests.swift
+          command: xcodebuild test-without-building -scheme circleci-demo-macos 
       - store_artifacts:
           path: app.zip
           destination: app
@@ -53,11 +53,11 @@ jobs: # a basic unit of work in a run
       - run:
           # Create XCTESTRUN file using xcode's cli tool `xcodebuild`
           name: Create XCTESTRUN file
-          command: xcodebuild build-for-testing -scheme circleci-demo-macos2
+          command: xcodebuild build-for-testing -scheme "XCTestRun"
       - run:
           # run our tests using xcode's cli tool `xcodebuild`
           name: Run Unit Tests
-          command: xcodebuild test-without-building -scheme circleci-demo-macos2 -only-testing:circleci-demo-macosTests/circleci_demo_macosTests2.swift
+          command: xcodebuild test-without-building -scheme circleci-demo-macos2 
       - store_artifacts:
           path: app.zip
           destination: app
