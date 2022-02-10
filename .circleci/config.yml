@@ -5,7 +5,6 @@ jobs: # a basic unit of work in a run
     macos:  # indicate that we are using the macOS executor
       xcode: "12.5.1" # indicate our selected version of Xcode
     resource_class: macos.x86.medium.gen2
-    parallelism: 2
     steps: # a series of commands to run
       - checkout  # pull down code from your version control system.
       - run: brew update 
