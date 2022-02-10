@@ -53,7 +53,7 @@ jobs: # a basic unit of work in a run
       - run:
           # Create XCTESTRUN file using xcode's cli tool `xcodebuild`
           name: Create XCTESTRUN file
-          command: xcodebuild build-for-testing -scheme circleci-demo-macos
+          command: xcodebuild build-for-testing -scheme circleci-demo-macos2
       - run:
           # run our tests using xcode's cli tool `xcodebuild`
           name: Run Unit Tests
