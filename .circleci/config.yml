@@ -14,10 +14,10 @@ jobs: # a basic unit of work in a run
 #      - run: bash scripts/extract-install4j.sh
 #      - run: install4j7/bin/install4jc --verbose --license=$INSTALL4J_KEY
 #      - run: ./gradlew -Pinstall4jDir="install4j7" release --stacktrace
-      - run:
-          # run our tests using xcode's cli tool `xcodebuild`
-          name: Run Unit Tests
-          command: xcodebuild test-without-building -scheme circleci-demo-macos
+#      - run:
+#          # run our tests using xcode's cli tool `xcodebuild`
+#          name: Run Unit Tests
+#          command: xcodebuild test-without-building -scheme circleci-demo-macos
       - run:
           # build our application
           name: Build Application
@@ -25,6 +25,77 @@ jobs: # a basic unit of work in a run
       - run:
           name: Compress app for storage
           command: zip -r app.zip build/Release/circleci-demo-macos.app
+      - persist_to_workspace:
+          root: build/Release/
+          paths:
+            - circleci-demo-macos.app
+ #     - store_artifacts:
+ #         path: app.zip
+ #         destination: app
+
+  test1: # runs not using `Workflows` must have a `build` job as entry point
+    macos:  # indicate that we are using the macOS executor
+      xcode: "12.5.1" # indicate our selected version of Xcode
+    resource_class: macos.x86.medium.gen2
+    steps: # a series of commands to run
+      - checkout  # pull down code from your version control system.
+      - attach_workspace:
+          at: build/Release/
+      - run: brew update
+      - run: brew install gradle
+#      - run: curl https://download-gcdn.ej-technologies.com/install4j/install4j_macos_8_0_8.dmg
+#      - run: bash scripts/extract-install4j.sh
+#      - run: install4j7/bin/install4jc --verbose --license=$INSTALL4J_KEY
+#      - run: ./gradlew -Pinstall4jDir="install4j7" release --stacktrace
+      - run:
+          # run our tests using xcode's cli tool `xcodebuild`
+          name: Run Unit Tests
+          command: xcodebuild test-without-building -scheme circleci-demo-macos
+#      - run:
+#          # build our application
+#          name: Build Application
+#          command: xcodebuild
+#      - run:
+#          name: Compress app for storage
+#          command: zip -r app.zip build/Release/circleci-demo-macos.app
       - store_artifacts:
           path: app.zip
           destination: app
+
+  test2: # runs not using `Workflows` must have a `build` job as entry point
+    macos:  # indicate that we are using the macOS executor
+      xcode: "12.5.1" # indicate our selected version of Xcode
+    resource_class: macos.x86.medium.gen2
+    steps: # a series of commands to run
+      - checkout  # pull down code from your version control system.
+      - attach_workspace:
+          at: build/Release/
+      - run: brew update
+      - run: brew install gradle
+#      - run: curl https://download-gcdn.ej-technologies.com/install4j/install4j_macos_8_0_8.dmg
+#      - run: bash scripts/extract-install4j.sh
+#      - run: install4j7/bin/install4jc --verbose --license=$INSTALL4J_KEY
+#      - run: ./gradlew -Pinstall4jDir="install4j7" release --stacktrace
+      - run:
+          # run our tests using xcode's cli tool `xcodebuild`
+          name: Run Unit Tests
+          command: xcodebuild test-without-building -scheme circleci-demo-macos2
+#      - run:
+#          # build our application
+#          name: Build Application
+#          command: xcodebuild
+#      - run:
+#          name: Compress app for storage
+#          command: zip -r app.zip build/Release/circleci-demo-macos.app
+      - store_artifacts:
+          path: app.zip
+          destination: app
+
+workflows:
+  test-and-deploy:
+    jobs:
+      - build
+      - test1:
+          requires: [build]
+      - test2:
+          requires: [build]
